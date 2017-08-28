@@ -228,7 +228,7 @@
 			{
 				all_page=result.data.count;
 				now_page=num;
-				$("#page_left_all,#page_left,#page_right,#page_right_all").removeClass("disable
+				$("#page_left_all,#page_left,#page_right,#page_right_all").removeClass("disable");
 				$("#page_1,#page_2,#page_3,#page_4").removeClass("red lighten-3");
 				$("#liuyan").html(template('message-template', result.data));
 				if(num==1)
