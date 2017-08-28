@@ -24,7 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-    <title>GOD IS MADOKA</title>
+    <title>Our God Madoka - Kaname Madoka 鹿目まどか 鹿目圆香 魔法少女まどか☆マギカ</title>
     <script src="//cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
 	
 	<!--Import Google Icon Font-->
@@ -228,7 +228,7 @@
 			{
 				all_page=result.data.count;
 				now_page=num;
-				$("#page_left_all,#page_left,#page_right,#page_right_all").removeClass("disabled");
+				$("#page_left_all,#page_left,#page_right,#page_right_all").removeClass("disable
 				$("#page_1,#page_2,#page_3,#page_4").removeClass("red lighten-3");
 				$("#liuyan").html(template('message-template', result.data));
 				if(num==1)
@@ -355,13 +355,14 @@
 				{
 					change_page(1);
 					Materialize.toast('留言成功', 1000);
-					$("#reply_reveal").click();
 					$("#name").val("Your name");
 					$("#email").val("Youremail@mail.com");
 					$("#content").val("");
 					Materialize.updateTextFields();
-				}	
+				}
 			},"json");
+			Materialize.toast('正在上传留言。。。。。。', 1000);
+			$("#reply_reveal").click();
 		}
 
 	}
