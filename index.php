@@ -353,8 +353,16 @@
 			{
 				if(result.msg==200)
 				{
+
 					change_page(1);
-					Materialize.toast('留言成功', 1000);
+					if(result.data!=null)
+					{
+						Materialize.toast('你的留言被系统扣留了', 1000);
+					}
+					else
+					{
+						Materialize.toast('留言成功', 1000);
+					}
 					$("#name").val("Your name");
 					$("#email").val("Youremail@mail.com");
 					$("#content").val("");

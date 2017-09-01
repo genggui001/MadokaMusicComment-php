@@ -1,6 +1,10 @@
 <?php
 require 'Medoo.php';
+require 'Akismet.class.php';
 use Medoo\Medoo;
+
+$WordPressAPIKey = '9595e242592d';
+$MyBlogURL = 'https://madoka.bid/';
 
 $database = new Medoo([
 	// required
@@ -49,6 +53,7 @@ function get_comment($page) {
 		"content"
 		], 
 		[
+		"isCommentSpam" => 0,
 		"LIMIT" => [($page-1)*5,5],
 		"ORDER" => ["time" => "DESC","id" => "DESC"]
 		]);
@@ -58,11 +63,40 @@ function get_comment($page) {
 
 function post_comment($name,$email,$content) {
 	global $database;
-	$database->insert("comment", [
-	"name" => $name,
-	"email" => $email,
-	"content" => $content,
-	"time" => date('Y-m-d H:i:s',time())
-	]);
-	return null;
+	global $WordPressAPIKey;
+	global $MyBlogURL;
+	
+	$name=strip_tags($name);
+	$email=strip_tags($email);
+	$content=strip_tags($content);
+	
+	$akismet = new Akismet($MyBlogURL ,$WordPressAPIKey);
+	$akismet->setCommentAuthor($name);
+	$akismet->setCommentAuthorEmail($email);
+	$akismet->setCommentAuthorURL('https://madoka.bid/');
+	$akismet->setCommentContent($content);
+	$akismet->setPermalink('https://madoka.bid/');
+	if($akismet->isCommentSpam())
+	{
+		return "isCommentSpam";
+	}
+	// store the comment but mark it as spam (in case of a mis-diagnosis)
+	else if($name==""||$email==""||$content=="")
+	{
+		return "isnull";
+	}
+	else
+	{
+		$database->insert("comment", [
+		"name" => $name,
+		"email" => $email,
+		"content" => $content,
+		"time" => date('Y-m-d H:i:s',time()),
+		"user_ip" => $_SERVER["REMOTE_ADDR"]
+		]);
+		return null;
+	}
+	// store the comment normally
+	
+
 }
