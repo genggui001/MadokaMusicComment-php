@@ -22,6 +22,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+	<meta name="referrer" content="never">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <title>Our God Madoka - Kaname Madoka 鹿目まどか 鹿目圆香 魔法少女まどか☆マギカ</title>
